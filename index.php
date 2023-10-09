@@ -1,3 +1,59 @@
+<?php require 'PHPMailer/PHPMailerAutoload.php'; ?>
+<?php
+function Redirect_to($New_Location)
+{
+  header("Location:" . $New_Location);
+  exit;
+}
+
+// call the contact() function if contact_btn is clicked
+if (isset($_POST['contact_btn'])) {
+  contact();
+}
+
+function contact()
+{
+  if (isset($_POST["contact_btn"])) {
+
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+    $message = $_POST["message"];
+
+    // Email Functionality
+
+    date_default_timezone_set('Etc/UTC');
+
+    $mail = new PHPMailer();
+
+    $mail->setFrom($_POST['email'], $_POST['name']); // Set sender name and email
+    $mail->addAddress('cymerdenampo@gmail.com');
+
+    // The subject of the message.
+    $mail->Subject = 'Received Message From Client ' . $name;
+
+    // Set the email format to plain text
+    $mail->isHTML(false);
+
+    // Construct the email body in plain text
+    $mail->Body = "Name: " . strip_tags($_POST['name']) . "\r\n"
+      . "Email: " . strip_tags($_POST['email']) . "\r\n"
+      . "Phone: " . strip_tags($_POST['phone']) . "\r\n"
+      . "Message: " . strip_tags($_POST['message']);
+
+    if ($mail->send()) {
+      Redirect_to("index.php");
+    } else {
+      Redirect_to("index.php");
+    }
+
+  } //Ending of Submit Button If-Condition
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +66,9 @@
   <meta content="" name="keywords">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
@@ -45,8 +103,10 @@
         <h1 class="text-light"><a href="index.html">Cymer Jacob</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://twitter.com/DenampoCymer" class="twitter" target="_blank"><i class="bx bxl-twitter"></i></a>
-          <a href="https://www.facebook.com/cymerjacob.denampo.9" class="facebook" target="_blank"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.instagram.com/jacobovelhoms/" class="instagram" target="_blank"><i class="bx bxl-instagram"></i></a>
+          <a href="https://www.facebook.com/cymerjacob.denampo.9" class="facebook" target="_blank"><i
+              class="bx bxl-facebook"></i></a>
+          <a href="https://www.instagram.com/jacobovelhoms/" class="instagram" target="_blank"><i
+              class="bx bxl-instagram"></i></a>
         </div>
       </div>
 
@@ -55,7 +115,8 @@
           <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
           <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
           <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i>
+              <span>Portfolio</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
       </nav>
@@ -68,7 +129,8 @@
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
       <h1>Cymer Jacob Denampo</h1>
-      <p>I'm <span class="typed" data-typed-items="a Data Engineer, a Web Developer, a Graphic Designer and a Technical Support"></span></p>
+      <p>I'm <span class="typed"
+          data-typed-items="a Data Engineer, a Web Developer, a Graphic Designer and a Technical Support"></span></p>
     </div>
   </section>
   <!-- End Hero -->
@@ -98,21 +160,27 @@
                 <ul>
                   <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>April 11 2001</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>09** *** ****</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Sindulan Tina-an, City of Naga Cebu</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Sindulan Tina-an, City of Naga
+                      Cebu</span></li>
                 </ul>
               </div>
               <div class="col-lg-6">
                 <ul>
                   <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>22</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor of Science in Information Technology</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>cymerdenampo@gmail.com</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Bachelor of Science in
+                      Information Technology</span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>cymerdenampo@gmail.com</span>
+                  </li>
                 </ul>
               </div>
             </div>
             <p>
-              To apply my expertise in data engineering and graphic designing and have the expertise to create cutting-edge solutions that optimize data-driven processes. 
-              Leveraging my proficiency in programming languages like PHP, SQL, and others, I design efficient data architectures to develop high-performance systems. 
-              Additionally, I have extensive experience in database design, coding, and optimization and experienced graphic designer, web developer, and database administrator, 
+              To apply my expertise in data engineering and graphic designing and have the expertise to create
+              cutting-edge solutions that optimize data-driven processes.
+              Leveraging my proficiency in programming languages like PHP, SQL, and others, I design efficient data
+              architectures to develop high-performance systems.
+              Additionally, I have extensive experience in database design, coding, and optimization and experienced
+              graphic designer, web developer, and database administrator,
               I am confident that I can contribute to your team's success.
             </p>
           </div>
@@ -130,12 +198,14 @@
           <h2>Skills</h2>
           <p> <!--text here--> </p>
         </div>
-        
-        <div class="col-lg-6" data-aos="fade-up"> 
-          <li>Excellent communication skills to collaborate with cross-functional teams and explain technical concepts to non-technical stakeholders</li>
+
+        <div class="col-lg-6" data-aos="fade-up">
+          <li>Excellent communication skills to collaborate with cross-functional teams and explain technical concepts
+            to non-technical stakeholders</li>
           <li>Proficiency in programming languages such as Php, SQL and Java</li>
           <li>Attention to detail and accuracy to ensure data integrity</li>
-          <li>Proficiency in programming languages such as HTML, CSS, JavaScript, and a server-side language such as PHP</li>
+          <li>Proficiency in programming languages such as HTML, CSS, JavaScript, and a server-side language such as PHP
+          </li>
           <li>Understanding of user experience (UX) and user interface (UI) design principles</li>
           <li>Ability to create responsive and mobile-friendly websites</li>
           <li>Creativity and a strong sense of aesthetics to create visually appealing designs</li>
@@ -144,7 +214,8 @@
           <li>Ability to work under tight deadlines and manage multiple projects simultaneously</li>
           <li>Strong problem-solving skills to identify and troubleshoot technical issues</li>
           <li>Patience and empathy to provide customer support with a positive attitude</li>
-          <li>Knowledge of operating systems such as Windows and Windows, and hardware components such as CPUs, RAM, and storage</li>
+          <li>Knowledge of operating systems such as Windows and Windows, and hardware components such as CPUs, RAM, and
+            storage</li>
           <li>Ability to work under pressure and prioritize tasks based on urgency</li>
         </div>
 
@@ -211,86 +282,87 @@
       <div class="container">
 
         <div class="section-title">
-          
+
           <h2>Resume</h2>
         </div>
-        <div class="row"><div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-          <h3 class="resume-title">Education</h3>
-          <div class="resume-item">
-            <h4>College</h4>
-            <ul>
-              <li>Professional Academy of the Philippines</li>
-              <p>East Poblacion, City of Naga Cebu</p>
-              <p>Bachelor of Science in Information Technology</p>
-              <h5>2020 - Present</h5>
-            </ul>
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="resume-title">Education</h3>
+            <div class="resume-item">
+              <h4>College</h4>
+              <ul>
+                <li>Professional Academy of the Philippines</li>
+                <p>East Poblacion, City of Naga Cebu</p>
+                <p>Bachelor of Science in Information Technology</p>
+                <h5>2020 - Present</h5>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Senior High School</h4>
+              <ul>
+                <li>Naga National High School</li>
+                <p>West Pob. City of Naga, Cebu</p>
+                <p>Electrical Installation and Maintenance</p>
+                <h5>2019 - 2020</h5>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Secondary</h4>
+              <ul>
+                <li>Naga National High School</li>
+                <p>West Pob. City of Naga, Cebu</p>
+                <p>TVL - Major in Electrical Installation and Maintenance</p>
+                <h5>2016 - 2017</h5>
+              </ul>
+            </div>
+
+            <div class="resume-item">
+              <h4>Primary</h4>
+              <ul>
+                <li>Naga Central Elementary School</li>
+                <p>West Pob. City of Naga, Cebu</p>
+                <h5>2011 - 2012</h5>
+              </ul>
+            </div>
+
+            <h3 class="resume-title">Achievements</h3>
+            <div class="resume-item">
+              <ul>
+                <h4>NC II PASSER</h4>
+                <li>Electrical Installation and Maintenance</li>
+                <h5>2017</h5>
+              </ul>
+            </div>
+
+            <h3 class="resume-title">Working Experience</h3>
+            <div class="resume-item">
+              <h4>Working Experience</h4>
+              <ul>
+                <li>Data Engineer</li>
+                <p>Tribe Guild</p>
+                <h5>2023</h5>
+
+                <li>Graphic Designer/Video Editor</li>
+                <p>ProjecLab</p>
+                <h5>2023</h5>
+
+                <li>Graphic Designer</li>
+                <p>Cebu Printmaster</p>
+                <h5>2022</h5>
+
+                <li>Student Assistant at Registrar’s Office</li>
+                <p>Professional Academy of the Philippines</p>
+                <h5>2021 - 2022</h5>
+
+                <li>Waiter</li>
+                <p>Cocina Calza Catering Services</p>
+                <h5>2014 - 2022</h5>
+              </ul>
+            </div>
+
           </div>
-
-          <div class="resume-item">
-            <h4>Senior High School</h4>
-            <ul>
-              <li>Naga National High School</li>
-              <p>West Pob. City of Naga, Cebu</p>
-              <p>Electrical Installation and Maintenance</p>
-              <h5>2019 - 2020</h5>
-            </ul>
-          </div>
-
-          <div class="resume-item">
-            <h4>Secondary</h4>
-            <ul>
-              <li>Naga National High School</li>
-              <p>West Pob. City of Naga, Cebu</p>
-              <p>TVL - Major in Electrical Installation and Maintenance</p>
-              <h5>2016 - 2017</h5>
-            </ul>
-          </div>
-
-          <div class="resume-item">
-            <h4>Primary</h4>
-            <ul>
-              <li>Naga Central Elementary School</li>
-              <p>West Pob. City of Naga, Cebu</p>
-              <h5>2011 - 2012</h5>
-            </ul>
-          </div>
-
-          <h3 class="resume-title">Achievements</h3>
-          <div class="resume-item">
-            <ul>
-              <h4>NC II PASSER</h4>
-              <li>Electrical Installation and Maintenance</li>
-              <h5>2017</h5>
-            </ul>
-          </div>
-
-          <h3 class="resume-title">Working Experience</h3>
-          <div class="resume-item">
-            <h4>Working Experience</h4>
-            <ul>
-              <li>Data Engineer</li>
-              <p>Tribe Guild</p>
-              <h5>2023</h5>
-
-              <li>Graphic Designer/Video Editor</li>
-              <p>ProjecLab</p>
-              <h5>2023</h5>
-
-              <li>Graphic Designer</li>
-              <p>Cebu Printmaster</p>
-              <h5>2022</h5>
-
-              <li>Student Assistant at Registrar’s Office</li>
-              <p>Professional Academy of the Philippines</p>
-              <h5>2021 - 2022</h5>
-              
-              <li>Waiter</li>
-              <p>Cocina Calza Catering Services</p>
-              <h5>2014 - 2022</h5>         
-            </ul>
-          </div>
-
-        </div>
           <div class="col-lg-6" data-aos="fade-up">
             <h3 class="resume-title">Character References</h3>
             <div class="resume-item pb-0">
@@ -342,7 +414,8 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer Certification and Leaning Opportunities.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer Certification and Leaning Opportunities.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer Certification and Leaning Opportunities.jpg"
+                  data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -351,7 +424,8 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer Data Science & artificial Intelligence.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer Data Science & artificial Intelligence.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer Data Science & artificial Intelligence.jpg"
+                  data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -360,7 +434,8 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer Software Engineering.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer Software Engineering.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer Software Engineering.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -369,7 +444,8 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer Cybersecurity.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer Cybersecurity.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer Cybersecurity.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -378,7 +454,8 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer E-commerce & Financial Technology.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer E-commerce & Financial Technology.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer E-commerce & Financial Technology.jpg"
+                  data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -387,18 +464,20 @@
             <div class="portfolio-wrap">
               <img src="assets/certificates/Cymer ICT Trends.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/certificates/Cymer ICT Trends.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/certificates/Cymer ICT Trends.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
           <!-- CERTIFICATES -->
-          
+
           <!-- IMAGES -->
           <div class="col-lg-4 col-md-6 portfolio-item filter-images">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/business types.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/business types.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/business types.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -407,7 +486,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/tarp.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/tarp.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/tarp.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -416,7 +496,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/TICKET NGA NAA SA HAND.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/TICKET NGA NAA SA HAND.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/TICKET NGA NAA SA HAND.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -425,7 +506,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/Mood Board Cymer.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/Mood Board Cymer.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/Mood Board Cymer.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -434,7 +516,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/BLACK TICKET.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/BLACK TICKET.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/BLACK TICKET.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -443,7 +526,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/FOOD TICKET.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/FOOD TICKET.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/FOOD TICKET.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -452,7 +536,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/gatepass.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/gatepass.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/gatepass.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -461,7 +546,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/meal stub.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/meal stub.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/meal stub.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -470,7 +556,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/EROPLATO.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/EROPLATO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/EROPLATO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -479,7 +566,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/LAPIS LAUGH FACE.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/LAPIS LAUGH FACE.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/LAPIS LAUGH FACE.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -488,7 +576,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/NOSE DIVE.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/NOSE DIVE.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/NOSE DIVE.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -497,7 +586,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/POST IT SHOOTOUT.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/POST IT SHOOTOUT.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/POST IT SHOOTOUT.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -506,7 +596,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -515,7 +606,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/FOR GRAPHIC RESUME.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/FOR GRAPHIC RESUME.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/FOR GRAPHIC RESUME.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -524,7 +616,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/Macro Cycle.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/Macro Cycle.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/Macro Cycle.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -533,7 +626,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/UMS-PRO.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/UMS-PRO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/UMS-PRO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -542,16 +636,18 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/UMS-TECH Support.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/UMS-TECH Support.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/UMS-TECH Support.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
-          
+
           <div class="col-lg-4 col-md-6 portfolio-item filter-images">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -560,7 +656,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/sticker.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/sticker.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/sticker.png" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -569,28 +666,31 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/wendy.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/wendy.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/wendy.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
           <!-- IMAGES -->
 
           <!-- JERSEY -->
-          
+
           <div class="col-lg-4 col-md-6 portfolio-item filter-jersey">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/SK JERSEY.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/SK JERSEY.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/SK JERSEY.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
-          
+
           <div class="col-lg-4 col-md-6 portfolio-item filter-jersey">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/POLO.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/POLO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/POLO.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -599,7 +699,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/COUZINS.png" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/COUZINS.png" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/COUZINS.png" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -626,7 +727,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/jersey3.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/jersey3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/jersey3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -635,18 +737,20 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/jersey4.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/jersey4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/jersey4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
           <!-- JERSEY -->
-          
+
           <!-- VIDEOS -->
           <div class="col-lg-4 col-md-6 portfolio-item filter-videos">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/black.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/Copy of Mr. and Miss Education.mp4" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/Copy of Mr. and Miss Education.mp4" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -655,7 +759,8 @@
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/black.jpg" class="img-fluid" alt="">
               <div class="portfolio-links">
-                <a href="assets/img/portfolio/GROUP ACTIVITY FINAL EDIT.mp4" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/img/portfolio/GROUP ACTIVITY FINAL EDIT.mp4" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -666,7 +771,8 @@
             <div class="portfolio-wrap">
               <a style="color: #dda714" href="assets/projects/activity.zip" download>Register Form with Database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/activity.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/activity.zip" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -675,52 +781,62 @@
             <div class="portfolio-wrap">
               <a style="color: #dda714;" href="assets/projects/basiccrud.zip" download>Crud with Database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/basiccrud.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/basiccrud.zip" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
-          
+
           <div class="col-lg-4 col-md-6 portfolio-item filter-projects">
             <div class="portfolio-wrap">
               <a style="color: #dda714" href="assets/projects/database.zip" download>Record List with Database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/database.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/database.zip" data-gallery="portfolioGallery" class="portfolio-lightbox"
+                  title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-projects">
             <div class="portfolio-wrap">
-              <a style="color: #dda714" href="assets/projects/java-name-address-age.zip" download>Personal Details with Database</a>
+              <a style="color: #dda714" href="assets/projects/java-name-address-age.zip" download>Personal Details with
+                Database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/java-name-address-age.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/java-name-address-age.zip" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-projects">
             <div class="portfolio-wrap">
-              <a style="color: #dda714" href="assets/projects/LAST REVISE MaterialMe-Starter-master.zip" download>Mobile app</a>
+              <a style="color: #dda714" href="assets/projects/LAST REVISE MaterialMe-Starter-master.zip" download>Mobile
+                app</a>
               <div class="portfolio-links">
-                <a href="assets/projects/LAST REVISE MaterialMe-Starter-master.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/LAST REVISE MaterialMe-Starter-master.zip" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-projects">
             <div class="portfolio-wrap">
-              <a style="color: #dda714" href="assets/projects/Login Page with Database for CAP 2.zip" download>Login Page With database</a>
+              <a style="color: #dda714" href="assets/projects/Login Page with Database for CAP 2.zip" download>Login
+                Page With database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/Login Page with Database for CAP 2.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/Login Page with Database for CAP 2.zip" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-projects">
             <div class="portfolio-wrap">
-              <a style="color: #dda714" href="assets/projects/TRIBEFORMDATABASE OFFLINE.zip" download>Application Form with Database</a>
+              <a style="color: #dda714" href="assets/projects/TRIBEFORMDATABASE OFFLINE.zip" download>Application Form
+                with Database</a>
               <div class="portfolio-links">
-                <a href="assets/projects/TRIBEFORMDATABASE OFFLINE.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/TRIBEFORMDATABASE OFFLINE.zip" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
@@ -729,12 +845,13 @@
             <div class="portfolio-wrap">
               <a style="color: #dda714" href="assets/projects/loginwithdiscord.zip" download>Login with Discord</a>
               <div class="portfolio-links">
-                <a href="assets/projects/loginwithdiscord.zip" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
+                <a href="assets/projects/loginwithdiscord.zip" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
               </div>
             </div>
           </div>
           <!-- PROJECTS -->
-          
+
         </div>
 
       </div>
@@ -771,13 +888,16 @@
                 <p>09** *** ****</p>
               </div>
 
-              <iframe src="https://maps.google.com/maps?q=sindulan city of naga cebu&t=&z=10&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+              <iframe
+                src="https://maps.google.com/maps?q=sindulan city of naga cebu&t=&z=10&ie=UTF8&iwloc=&output=embed"
+                frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
             </div>
 
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="index.php" method="post" role="form" class="php-email-form">
+              <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form"> -->
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
@@ -789,8 +909,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
+                <!-- <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required> -->
+
+                <label for="name">Phone</label>
+                <input type="text" class="form-control" name="phone" id="phone" required>
               </div>
               <div class="form-group">
                 <label for="name">Message</label>
@@ -801,7 +924,7 @@
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
+              <div class="text-center"><button type="submit" name="contact_btn">Send Message</button></div>
             </form>
           </div>
 
@@ -831,7 +954,8 @@
   </footer>
   <!-- End  Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -842,7 +966,7 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!--<script src="assets/vendor/php-email-form/validate.js"></script>-->
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
