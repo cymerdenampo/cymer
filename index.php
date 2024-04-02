@@ -1,56 +1,29 @@
-<?php require 'PHPMailer/PHPMailerAutoload.php'; ?>
 <?php
-function Redirect_to($New_Location)
-{
-  header("Location:" . $New_Location);
-  exit;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+if (isset($_POST["send"])) {
+  $mail = new PHPMailer(true);
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = 'cymerdenampo@gmail.com';
+  $mail->Password = 'loumkxqwvtowkuiw';
+  $mail->SMTPSecure = 'ssl';
+  $mail->Port = 465;
+
+  $mail->setFrom($_POST['email'], $_POST['name']);
+  $mail->addAddress($_POST["email"]);
+  $mail->isHTML(true);
+  $mail->Subject = $_POST["name"];
+  $mail->Body = $_POST["message"];
+
+  $mail->send();
 }
-
-// call the contact() function if contact_btn is clicked
-if (isset($_POST['contact_btn'])) {
-  contact();
-}
-
-function contact()
-{
-  if (isset($_POST["contact_btn"])) {
-
-    $name = $_POST["name"];
-    $email = $_POST["email"];
-    $phone = $_POST["phone"];
-    $message = $_POST["message"];
-
-    // Email Functionality
-
-    date_default_timezone_set('Etc/UTC');
-
-    $mail = new PHPMailer();
-
-    $mail->setFrom($_POST['email'], $_POST['name']); // Set sender name and email
-    $mail->addAddress('cymerdenampo@gmail.com');
-
-    // The subject of the message.
-    $mail->Subject = 'Received Message From Client ' . $name;
-
-    // Set the email format to plain text
-    $mail->isHTML(false);
-
-    // Construct the email body in plain text
-    $mail->Body = "Name: " . strip_tags($_POST['name']) . "\r\n"
-      . "Email: " . strip_tags($_POST['email']) . "\r\n"
-      . "Phone: " . strip_tags($_POST['phone']) . "\r\n"
-      . "Message: " . strip_tags($_POST['message']);
-
-    if ($mail->send()) {
-      Redirect_to("index.php");
-    } else {
-      Redirect_to("index.php");
-    }
-
-  } //Ending of Submit Button If-Condition
-
-}
-
 ?>
 
 
@@ -65,28 +38,16 @@ function contact()
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: iPortfolio - v3.10.0
-  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -218,60 +179,6 @@ function contact()
             storage</li>
           <li>Ability to work under pressure and prioritize tasks based on urgency</li>
         </div>
-
-        <!-- <div class="row skills-content">
-
-          <div class="col-lg-6" data-aos="fade-up">
-
-            <div class="progress">
-              <span class="skill">HTML <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">CSS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">JavaScript <i class="val">65%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">PHP <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Photoshop <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Adobe Premiere <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-        </div> -->
 
       </div>
     </section>
@@ -705,24 +612,6 @@ function contact()
             </div>
           </div>
 
-          <!-- <div class="col-lg-4 col-md-6 portfolio-item filter-jersey">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/jersey1.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/jersey1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-jersey">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/jersey2.jpg" class="img-fluid" alt="">
-              <div class="portfolio-links">
-                <a href="assets/img/portfolio/jersey2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title=""><i class="bx bx-plus"></i></a>
-              </div>
-            </div>
-          </div> -->
-
           <div class="col-lg-4 col-md-6 portfolio-item filter-jersey">
             <div class="portfolio-wrap">
               <img src="assets/img/portfolio/jersey3.jpg" class="img-fluid" alt="">
@@ -882,11 +771,11 @@ function contact()
                 <p>cymerdenampo@gmail.com</p>
               </div>
 
-              <div class="phone">
+              <!-- <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Call:</h4>
                 <p>09** *** ****</p>
-              </div>
+              </div> -->
 
               <iframe
                 src="https://maps.google.com/maps?q=sindulan city of naga cebu&t=&z=10&ie=UTF8&iwloc=&output=embed"
@@ -897,23 +786,15 @@ function contact()
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
             <form action="index.php" method="post" role="form" class="php-email-form">
-              <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form"> -->
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
+                  <label for="name">Name</label>
                   <input type="text" name="name" class="form-control" id="name" required>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
+                  <label for="name">Email</label>
                   <input type="email" class="form-control" name="email" id="email" required>
                 </div>
-              </div>
-              <div class="form-group">
-                <!-- <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required> -->
-
-                <label for="name">Phone</label>
-                <input type="text" class="form-control" name="phone" id="phone" required>
               </div>
               <div class="form-group">
                 <label for="name">Message</label>
@@ -924,7 +805,7 @@ function contact()
                 <div class="error-message"></div>
                 <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
-              <div class="text-center"><button type="submit" name="contact_btn">Send Message</button></div>
+              <div class="text-center"><button type="submit" name="send">Send Message</button></div>
             </form>
           </div>
 
@@ -944,10 +825,6 @@ function contact()
         &copy; Copyright 2023 <strong><span></span></strong>
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
         Designed by <a href="https://www.facebook.com/cymerjacob.denampo.9" target="_blank">Cymer</a>
       </div>
     </div>
@@ -966,9 +843,6 @@ function contact()
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <!--<script src="assets/vendor/php-email-form/validate.js"></script>-->
-
-  <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>
