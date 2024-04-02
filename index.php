@@ -7,7 +7,7 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 if (isset($_POST["send"])) {
-  try {
+
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
@@ -24,10 +24,6 @@ if (isset($_POST["send"])) {
     $mail->Body = $_POST["message"];
 
     $mail->send();
-    echo json_encode(array("status" => "success"));
-  } catch (Exception $e) {
-    echo json_encode(array("status" => "error", "message" => $mail->ErrorInfo));
-  }
 }
 ?>
 
